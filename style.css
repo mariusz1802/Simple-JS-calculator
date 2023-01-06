@@ -1,0 +1,75 @@
+@font-face {
+  font-family: digital;
+  src: url(./fonts/digital-7.ttf);
+}
+
+body {
+  background: black;
+  color: white;
+  font-family: Arial;
+  margin: 0 auto;
+}
+
+.calculatorContainer {
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px 10px 40px 10px;
+  border-radius: 10px;
+  width: 400px;
+  background: linear-gradient(rgb(45, 45, 45), black);
+  border: 3px solid yellow;
+}
+
+.digital {
+  font-family: digital;
+  display: flex;
+  height: 90px;
+  padding: 5px;
+  font-size: 4.5rem;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 10px;
+
+  background: linear-gradient(rgb(28, 70, 255), rgb(39, 129, 254));
+}
+
+button {
+  padding: 15px;
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin: 3px;
+  border-radius: 2px;
+}
+
+button:hover {
+  background: darkgrey;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: grid;
+  grid-template-columns: 1fr 20%;
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightColumn button {
+  background: rgb(141, 141, 141);
+  color: white;
+}
+
+.rightColumn button:last-child {
+  font-size: 3rem;
+}
+
+.rightColumn button:hover {
+  background: rgb(58, 58, 58);
+}
