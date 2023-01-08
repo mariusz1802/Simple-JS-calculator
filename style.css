@@ -20,10 +20,11 @@ body {
   border: 3px solid yellow;
 }
 
-.digital {
+.digitalContainer {
   font-family: digital;
   display: flex;
-  height: 90px;
+  flex-direction: column;
+  min-height: 130px;
   padding: 5px;
   font-size: 4.5rem;
   justify-content: flex-end;
@@ -31,6 +32,11 @@ body {
   margin-bottom: 10px;
 
   background: linear-gradient(rgb(28, 70, 255), rgb(39, 129, 254));
+}
+
+.topDigital {
+  font-size: 2rem;
+  color: rgba(white, white, white, 0.2);
 }
 
 button {
