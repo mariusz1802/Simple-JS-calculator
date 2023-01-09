@@ -79,3 +79,9 @@ button:hover {
 .rightColumn button:hover {
   background: rgb(58, 58, 58);
 }
+
+#equal {
+  background-color: orange;
+  font-size: 3rem;
+  padding: 2px;
+}
