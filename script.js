@@ -1,74 +1,75 @@
 let bottomDigital = document.querySelector(`.bottomDigital`);
-
+let topDigital = document.querySelector(".topDigital");
 let buttonArr = [];
+let numbers = [];
+let singleNumber = [];
+let digitNumber;
+
 for (let i = 0; i <= 9; i++) {
   const button = document.querySelector(`#but${i}`);
   buttonArr.push(button);
   buttonArr;
 }
 
-let numbers = [];
-let singleNumber = [];
-let digitNumber;
-
-function createSingleNumber() {
+function createSingleNumberbyMouseClick() {
   for (let i = 0; i < buttonArr.length; i++) {
-    buttonArr[i].addEventListener("click", () => {
-      if (singleNumber.length > 10) {
-        return;
-      } else {
-        singleNumber.push(`${i}`);
-        digitNumber = Number(singleNumber.join(""));
-        bottomDigital.innerHTML = digitNumber;
-      }
-    });
+    buttonArr[i].addEventListener("click", ()=> {addNumber(i)} );
   }
 }
 
-//addEventListener for every key
-addEventListener("keydown", (event) => {
-  console.log(event.key);
-});
+function createSingleNumberbyKeydown(){
+  addEventListener("keydown", (event) => {
+if(!isNaN(event.key)){
+  addNumber(event.key)
+}else{
+  return;
+}
+  });
+}
 
-function createSingleNumber() {
-  for (let i = 0; i < buttonArr.length; i++) {
-    buttonArr[i].addEventListener("click", () => {
-      if (singleNumber.length > 10) {
-        return;
-      } else {
-        singleNumber.push(`${i}`);
-        digitNumber = Number(singleNumber.join(""));
-        bottomDigital.innerHTML = digitNumber;
-      }
-    });
-  }
+function addNumber(i){
+    if (singleNumber.length > 10) {
+      return;
+    } else {
+      singleNumber.push(`${i}`);
+      digitNumber = Number(singleNumber.join(""));
+      bottomDigital.innerHTML = digitNumber;
+    } 
 }
 
 function deleteNumber() {
   const deletButton = document.querySelector("#butCE");
   deletButton.addEventListener("click", () => {
     singleNumber = [];
+    topStringArr=[];
     bottomDigital.innerHTML = 0;
+    topDigital.innerHTML = "";
   });
 }
+
 
 function addNumbers() {
   const plusButton = document.querySelector(`#butPlus`);
   plusButton.addEventListener("click", topDigitPlus);
 }
+let topStringArr = [];
 
-const topStringArr = [];
 
 function topDigitPlus() {
-  let topDigital = document.querySelector(".topDigital");
   topStringArr.push(digitNumber);
-  topDigital.innerHTML = topStringArr.join("+");
+  if(topStringArr.length  == 1){
+    topDigital.innerHTML = digitNumber + "+";
+  }
+  else{
+    topDigital.innerHTML = topStringArr.join("+");
+  }
   singleNumber = [];
   bottomDigital.innerHTML = 0;
 }
 
-function equal() {}
 
-createSingleNumber();
+
+createSingleNumberbyMouseClick();
+createSingleNumberbyKeydown();
 deleteNumber();
 addNumbers();
