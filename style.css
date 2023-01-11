@@ -30,7 +30,7 @@ body {
   justify-content: flex-end;
   align-items: flex-end;
   margin-bottom: 10px;
-
+  overflow: hidden;
   background: linear-gradient(rgb(28, 70, 255), rgb(39, 129, 254));
 }
 
