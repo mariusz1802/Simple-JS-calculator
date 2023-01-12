@@ -1,9 +1,8 @@
 let bottomDigital = document.querySelector(`.bottomDigital`);
 let topDigital = document.querySelector(".topDigital");
 let buttonArr = [];
-let numbers = [];
 let singleNumber = [];
-let digitNumber;
+let digitNumber = 0;
 let topStringArr = [];
 
 for (let i = 0; i <= 9; i++) {
@@ -37,6 +36,8 @@ function addNumber(i) {
 
 function clearDigit() {
   singleNumber = [];
+  console.log(digitNumber);
+  digitNumber = 0;
   topStringArr = [];
   bottomDigital.innerHTML = 0;
   topDigital.innerHTML = "";
@@ -80,12 +81,10 @@ function plusKeyboardBtn() {
 function summary() {
   let sum = 0;
   topStringArr.push(digitNumber);
-
-  const sumOfArray = topStringArr.reduce((prev, next) => prev + next, sum);
-  console.log(typeof topStringArr);
-  console.log(`sum: ${sumOfArray}`);
+  const equal = topStringArr.reduce((prev, next) => prev + next, sum);
   console.log(`topStringArr: ${topStringArr}`);
-  bottomDigital.innerHTML = `${sumOfArray}`;
+  console.log(equal);
+  bottomDigital.innerHTML = equal;
 }
 
 function equalButton() {
