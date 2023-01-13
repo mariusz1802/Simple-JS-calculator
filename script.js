@@ -29,18 +29,17 @@ function createSingleNumberbyKeydown() {
 }
 
 function addNumber(i) {
-  singleNumber.push(`${i}`);
+  singleNumber.push(i);
   digitNumber = Number(singleNumber.join(""));
   bottomDigital.innerHTML = digitNumber;
 }
 
 function clearDigit() {
-  singleNumber = [];
-  console.log(digitNumber);
-  digitNumber = 0;
-  topStringArr = [];
-  bottomDigital.innerHTML = 0;
-  topDigital.innerHTML = "";
+    bottomDigital.innerHTML = "0"
+    topDigital.innerHTML = ""
+    singleNumber = [];
+    topStringArr= [];
+
 }
 
 function deleteNumber() {
@@ -66,7 +65,7 @@ function topDigitPlus() {
     topDigital.innerHTML = topStringArr.join("+");
   }
   singleNumber = [];
-  bottomDigital.innerHTML = 0;
+
 }
 
 function plusKeyboardBtn() {
@@ -77,15 +76,21 @@ function plusKeyboardBtn() {
   });
 }
 
-//we need to total abount with equal or enter button our calculator
+//we need to total abount with equal or enter button our calc+ulator
 function summary() {
-  let sum = 0;
-  topStringArr.push(digitNumber);
-  const equal = topStringArr.reduce((prev, next) => prev + next, sum);
-  console.log(`topStringArr: ${topStringArr}`);
-  console.log(equal);
-  bottomDigital.innerHTML = equal;
+   topStringArr.push(digitNumber)
+  console.log(topStringArr)
+  const ergebnise = topStringArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  console.log(ergebnise)
+  bottomDigital.innerHTML = ergebnise;
 }
+
+
+
+
+
+
+
 
 function equalButton() {
   document.addEventListener("keydown", (event) => {
