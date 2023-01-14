@@ -44,7 +44,9 @@ function clearDigit() {
 
 function deleteNumber() {
   const deletButton = document.querySelector("#butCE");
-  deletButton.addEventListener("click", clearDigit);
+  deletButton.addEventListener("mousedown", ()=> {
+    clearDigit();
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Delete" || event.key === "Backspace") {
       clearDigit();
@@ -58,6 +60,7 @@ function addNumbers() {
 }
 
 function topDigitPlus() {
+
   topStringArr.push(digitNumber);
   if (topStringArr.length == 1) {
     topDigital.innerHTML = digitNumber + "+";
@@ -65,7 +68,7 @@ function topDigitPlus() {
     topDigital.innerHTML = topStringArr.join("+");
   }
   singleNumber = [];
-
+;
 }
 
 function plusKeyboardBtn() {
@@ -77,24 +80,23 @@ function plusKeyboardBtn() {
 }
 
 //we need to total abount with equal or enter button our calc+ulator
-function summary() {
+const summary =  () => {
    topStringArr.push(digitNumber)
-  console.log(topStringArr)
   const ergebnise = topStringArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-  console.log(ergebnise)
   bottomDigital.innerHTML = ergebnise;
+  topDigital.innerHTML = "";
+  topStringArr = [];
+  return ergebnise;
 }
 
 
-
-
-
-
-
-
 function equalButton() {
+  const eqaulBtn = document.querySelector("#equal");
+  eqaulBtn.addEventListener("click",()=> {
+    summary();
+  })
   document.addEventListener("keydown", (event) => {
-    if (event.key === "=" || event.key === "Enter") {
+    if (event.key == "=" || event.key == "Enter") {
       summary();
     }
   });
