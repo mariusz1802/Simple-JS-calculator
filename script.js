@@ -1,26 +1,31 @@
 let bottomDigital = document.querySelector(`.bottomDigital`);
 let topDigital = document.querySelector(".topDigital");
 let buttonArr = [];
-let singleNumber = [];
-let digitNumber = 0;
-let topStringArr = [];
+let initSingleBottomNumberArray = [];
+let singleBottomNumber;
+let topNumberArr = [];
+let plusActive = false;
 
 for (let i = 0; i <= 9; i++) {
   const button = document.querySelector(`#but${i}`);
   buttonArr.push(button);
 }
-
-function createSingleNumberbyMouseClick() {
+//Create single numbers by clicking mouse or keyboard
+function singleNumberMouse() {
   for (let i = 0; i < buttonArr.length; i++) {
     buttonArr[i].addEventListener("click", () => {
+      plusActive = false;
+
       addNumber(i);
     });
   }
 }
 
-function createSingleNumberbyKeydown() {
+function singleNumberKeyboard() {
+  plusActive = false;
   document.addEventListener("keydown", (event) => {
     if (!isNaN(event.key)) {
+      plusActive = false;
       addNumber(event.key);
     } else {
       return;
@@ -29,22 +34,21 @@ function createSingleNumberbyKeydown() {
 }
 
 function addNumber(i) {
-  singleNumber.push(i);
-  digitNumber = Number(singleNumber.join(""));
-  bottomDigital.innerHTML = digitNumber;
+  initSingleBottomNumberArray.push(i);
+  singleBottomNumber = Number(initSingleBottomNumberArray.join(""));
+  bottomDigital.innerHTML = singleBottomNumber;
 }
 
 function clearDigit() {
-    bottomDigital.innerHTML = "0"
-    topDigital.innerHTML = ""
-    singleNumber = [];
-    topStringArr= [];
-
+  bottomDigital.innerHTML = "0";
+  topDigital.innerHTML = "";
+  initSingleBottomNumberArray = [];
+  topNumberArr = [];
 }
 
 function deleteNumber() {
   const deletButton = document.querySelector("#butCE");
-  deletButton.addEventListener("mousedown", ()=> {
+  deletButton.addEventListener("mousedown", () => {
     clearDigit();
   });
   document.addEventListener("keydown", (event) => {
@@ -60,15 +64,17 @@ function addNumbers() {
 }
 
 function topDigitPlus() {
-
-  topStringArr.push(digitNumber);
-  if (topStringArr.length == 1) {
-    topDigital.innerHTML = digitNumber + "+";
+  console.log(singleBottomNumber);
+  if (plusActive === true || singleBottomNumber == 0) {
+    return;
   } else {
-    topDigital.innerHTML = topStringArr.join("+");
+    topNumberArr.push(singleBottomNumber);
+    topDigital.innerHTML = topNumberArr.join("+") + "+";
+    bottomDigital.innerHTML = 0;
+    initSingleBottomNumberArray = [];
   }
-  singleNumber = [];
-;
+
+  plusActive = true;
 }
 
 function plusKeyboardBtn() {
@@ -80,21 +86,27 @@ function plusKeyboardBtn() {
 }
 
 //we need to total abount with equal or enter button our calc+ulator
-const summary =  () => {
-   topStringArr.push(digitNumber)
-  const ergebnise = topStringArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+const summary = () => {
+  plusActive = false;
+
+  topNumberArr.push(singleBottomNumber);
+  const ergebnise = topNumberArr.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
   bottomDigital.innerHTML = ergebnise;
   topDigital.innerHTML = "";
-  topStringArr = [];
-  return ergebnise;
-}
+  topNumberArr = [ergebnise];
+  initSingleBottomNumberArray = [];
 
+  return ergebnise;
+};
 
 function equalButton() {
   const eqaulBtn = document.querySelector("#equal");
-  eqaulBtn.addEventListener("click",()=> {
+  eqaulBtn.addEventListener("click", () => {
     summary();
-  })
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key == "=" || event.key == "Enter") {
       summary();
@@ -102,8 +114,8 @@ function equalButton() {
   });
 }
 
-createSingleNumberbyMouseClick();
-createSingleNumberbyKeydown();
+singleNumberMouse();
+singleNumberKeyboard();
 deleteNumber();
 addNumbers();
 plusKeyboardBtn();
