@@ -5,6 +5,7 @@ let initSingleBottomNumberArray = [];
 let singleBottomNumber;
 let topNumberArr = [];
 let plusActive = false;
+let equalActive = false;
 
 for (let i = 0; i <= 9; i++) {
   const button = document.querySelector(`#but${i}`);
@@ -65,8 +66,11 @@ function addNumbers() {
 
 function topDigitPlus() {
   if (plusActive === true || singleBottomNumber == 0) {
+    topDigital.innerHTML = topNumberArr + '+';
+    bottomDigital.innerHTML = 0;
     return;
   } else {
+
     topNumberArr.push(singleBottomNumber);
     topDigital.innerHTML = topNumberArr.join("+") + "+";
 
@@ -86,34 +90,61 @@ function plusKeyboardBtn() {
 }
 
 //we need to total abount with equal or enter button our calc+ulator
-const summary = () => {
+function summary  () {
   plusActive = false;
-
   topNumberArr.push(singleBottomNumber);
   const ergebnise = topNumberArr.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
-  console.log(singleBottomNumber)
-  console.log(topNumberArr);
   bottomDigital.innerHTML = ergebnise;
   topDigital.innerHTML = "";
-  topNumberArr = [ergebnise];
   initSingleBottomNumberArray = [];
-  return ergebnise;
+  topNumberArr=[ergebnise];
+  singleBottomNumber = 0;
 };
 
 function equalButton() {
-  const eqaulBtn = document.querySelector("#equal");
-  eqaulBtn.addEventListener("click", () => {
-    summary();
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key == "=" || event.key == "Enter") {
+    const eqaulBtn = document.querySelector("#equal");
+    eqaulBtn.addEventListener("click", () => {
       summary();
-    }
-  });
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key == "=" || event.key == "Enter") {
+        summary();
+      }
+    });
 }
+
+
+function multiply(){
+  const multiplyBtn = document.querySelector("#butMultiply");
+
+  multiplyBtn.addEventListener("click", ()=> {
+    
+  })
+}
+
+
+function sumOfArray(){
+  const multiplyBtn = document.querySelector("#butMultiply");
+  const plusBtn = document.querySelector(`#butPlus`);
+
+
+  plusBtn.addEventListener("click" , ()=> {finish("+")})
+  multiplyBtn.addEventListener("click" , ()=> {finish("*")})
+
+}
+
+
+function finish(sign){
+  topNumberArr.push(singleBottomNumber);
+  if(sign === "+"){
+    
+  }
+}
+
+
 
 singleNumberMouse();
 singleNumberKeyboard();
@@ -121,3 +152,4 @@ deleteNumber();
 addNumbers();
 plusKeyboardBtn();
 equalButton();
+multiply();
