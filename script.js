@@ -64,12 +64,12 @@ function addNumbers() {
 }
 
 function topDigitPlus() {
-  console.log(singleBottomNumber);
   if (plusActive === true || singleBottomNumber == 0) {
     return;
   } else {
     topNumberArr.push(singleBottomNumber);
     topDigital.innerHTML = topNumberArr.join("+") + "+";
+
     bottomDigital.innerHTML = 0;
     initSingleBottomNumberArray = [];
   }
@@ -94,11 +94,12 @@ const summary = () => {
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
+  console.log(singleBottomNumber)
+  console.log(topNumberArr);
   bottomDigital.innerHTML = ergebnise;
   topDigital.innerHTML = "";
   topNumberArr = [ergebnise];
   initSingleBottomNumberArray = [];
-
   return ergebnise;
 };
 
