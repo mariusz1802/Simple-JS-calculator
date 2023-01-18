@@ -38,6 +38,11 @@ body {
 .topDigital {
   font-size: 2rem;
   color: rgba(white, white, white, 0.2);
+  height: 50px;
+}
+.bottomDigital{
+  height: 80px;
+
 }
 
 button {
