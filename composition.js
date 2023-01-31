@@ -1,47 +1,114 @@
-let digital = document.querySelector(`.digital`);
+class Calculator {
+  constructor(previousOperandTextElement, currentOperandTextElement) {
+    this.previousOperandTextElement = previousOperandTextElement;
+    this.currentOperandTextElement = currentOperandTextElement;
+    this.clear();
+  }
 
-let buttonArr = [];
-for (let i = 0; i <= 9; i++) {
-  const button = document.querySelector(`#but${i}`);
-  buttonArr.push(button);
+  clear() {
+    this.currentOperand = '';
+    this.previousOperand = '';
+    this.operation = undefined;
+  }
+
+  delete() {
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
+
+  }
+  appendNumber(number) {
+    if (number === '.' && this.currentOperand.includes('.')) return;
+    this.currentOperand = this.currentOperand.toString() + number.toString();
+  }
+
+  chooseOperation(operation) {
+    if (this.currentOperand === '') return;
+    if (this.previousOperand !== '') {
+      this.compute();
+    }
+    this.operation = operation;
+    this.previousOperand = this.currentOperand;
+    this.currentOperand = '';
+  }
+
+  compute() {
+    let computation;
+    const prev = parseFloat(this.previousOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch(this.operation) {
+      case '+':
+        computation = prev + current;
+        break;
+      case '-':
+        computation = prev - current;
+        break;
+      case '*':
+        computation = prev * current;
+        break;
+      case '÷':
+        computation = prev / current; 
+        break;
+      default:
+        return;
+    }
+    this.currentOperand = computation;
+    this.operation = undefined;
+    this.previousOperand = '';
+  }
+
+  updateDisplay() {
+    this.currentOperandTextElement.innerText = this.currentOperand;
+    this.previousOperandTextElement.innerText = this.previousOperand;
+    if (this.operation != null) {
+      this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`
+    }
+  }
 }
 
-let numbers = [];
-let singleNumber = [];
+const numberButtons = document.querySelectorAll('[data-number]');
+const operationButtons = document.querySelectorAll('[data-operation]');
+const equalsButton = document.querySelector('[data-equal]');
+const dataDel = document.querySelector('[data-delete]');
+const dataAC = document.querySelector('[data-ac]');
+const previousOperandTextElement = document.querySelector(
+  '[data-previous-operand]'
+);
+const currentOperandTextElement = document.querySelector(
+  '[data-current-operand]'
+);
 
-const creatableSingleNumber = (state) => ({
-  create: () => {
-    for (let i = 0; i < buttonArr.length; i++) {
-      buttonArr[i].addEventListener("click", () => {
-        if (singleNumber.length > 10) {
-          return;
-        } else {
-          singleNumber.push(`${i}`);
-          const digitNumber = Number(singleNumber.join(""));
-          digital.innerHTML = digitNumber;
-        }
-      });
-    }
-  },
+const calculator = new Calculator(
+  previousOperandTextElement,
+  currentOperandTextElement
+);
+
+numberButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
+  });
 });
 
-const deletableNumber = (state) => ({
-  deleteFunc: () => {
-    const deletButton = document.querySelector("#butCE");
-    deletButton.addEventListener("click", () => {
-      console.log("CE");
-      singleNumber = [];
-      digital.innerHTML = 0;
-    });
-  },
+operationButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    calculator.chooseOperation(button.innerText);
+    calculator.updateDisplay();
+  });
 });
 
-const calculate = (name) => {
-  const state = {
-    name: name,
-    createNumber: createNumber,
-    deletNumber: deleteNumber,
-  };
+equalsButton.addEventListener('click', (button) => {
+  calculator.compute();
+  calculator.updateDisplay();
+});
 
-  return Object.assign({}, creatableSingleNumber(), deletableNumber());
-};
+dataAC.addEventListener('click', (button) => {
+  console.log("clear")
+  calculator.clear();
+  calculator.updateDisplay();
+});
+
+
+dataDel.addEventListener('click', (button) => {
+  calculator.delete()
+  calculator.updateDisplay();
+})
